@@ -28,7 +28,7 @@ const Header: FC<HeaderProps> = ({ userId }) => {
       <Image src={logo} className="h-10" />
       <div className="flex items-center space-x-4 md:mr-16 md:space-x-8">
         <NavLink to="/home">Home</NavLink>
-        <NavLink to="/home/groups">Groups</NavLink>
+        <NavLink to="/home/tasks">Tasks</NavLink>
         <NavLink to="/home/account">Account</NavLink>
         <form method="post" action="/logout">
           <Button variant="link" type="submit" className="px-0">

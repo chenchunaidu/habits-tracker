@@ -1,11 +1,12 @@
 import React from "react";
 
-interface HabitProps {
+export interface HabitProps {
   id: number;
   completed?: boolean;
   image?: string;
   title: string;
   description: string;
+  onChange?: () => void;
 }
 
 const Habit: React.FC<HabitProps> = ({
@@ -14,6 +15,7 @@ const Habit: React.FC<HabitProps> = ({
   image,
   title,
   description,
+  onChange,
 }) => {
   return (
     <div>
@@ -30,7 +32,7 @@ const Habit: React.FC<HabitProps> = ({
           type="checkbox"
           className="h-6 w-6"
           checked={completed}
-          readOnly
+          onChange={onChange}
         ></input>
         <img
           src={image}
