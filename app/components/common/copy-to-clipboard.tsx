@@ -14,7 +14,7 @@ const CopyToClipBoardButton: FC<CopyToClipBoardButtonProps> = ({
   return (
     <Tooltip
       content="Link copied to clipboard"
-      className="-ml-24 w-48 bg-violet-600"
+      className="-ml-24 w-48 bg-lime-600"
       tooltipTrigger="click"
     >
       <Button

@@ -29,7 +29,7 @@ export default function GroupsPage() {
           </Heading>
           <div className="flex items-center">
             <Link to="/home/groups/new">
-              <PlusIcon className="h-6 w-6 hover:via-violet-500" />
+              <PlusIcon className="h-6 w-6 hover:via-lime-500" />
             </Link>
             <CopyToClipBoardButton copyText={link || ""}>
               <ShareIcon className="h-5 w-5" />

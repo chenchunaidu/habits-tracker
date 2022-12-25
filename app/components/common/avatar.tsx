@@ -25,7 +25,7 @@ const FallbackAvatar: FC<FallbackAvatarProps> = ({ size, className }) => {
   return (
     <div
       className={twMerge(
-        "rounded-full bg-gradient-to-r from-violet-600 via-violet-900 to-orange-500",
+        "rounded-full bg-gradient-to-r from-lime-600 via-lime-900 to-orange-500",
         sizes[size],
         className
       )}

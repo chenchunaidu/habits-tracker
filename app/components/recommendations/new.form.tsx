@@ -38,7 +38,7 @@ const EmptyGroupsMessage = () => (
     Currently you have no groups.{" "}
     <Link
       to="/home/groups/new?redirectTo=home/recommendations/new"
-      className="text-violet-500 underline"
+      className="text-lime-500 underline"
     >
       Create new group
     </Link>{" "}

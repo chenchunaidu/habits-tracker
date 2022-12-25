@@ -18,7 +18,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         <div className="flex items-center space-x-2 md:space-x-4">
           <Avatar size="lg" src={user?.avatar} />
           <Text className="text-md">
-            <div className="font-semibold text-violet-900">{user?.name}'s</div>{" "}
+            <div className="font-semibold text-lime-900">{user?.name}'s</div>{" "}
             <div className="font-light text-slate-500">recommendations</div>{" "}
           </Text>
         </div>

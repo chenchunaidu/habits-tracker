@@ -10,10 +10,10 @@ const sizes = {
 };
 
 const variants = {
-  outline: "bg-white border-violet-500 border text-violet-500",
-  solid: "bg-violet-500 hover:bg-violet-600",
-  ghost: "bg-white-500 hover:bg-violet-500 border border-gray-900 text-black",
-  link: "shadow-none text-black hover:text-violet-500",
+  outline: "bg-white border-lime-500 border text-lime-500",
+  solid: "bg-lime-500 hover:bg-lime-600",
+  ghost: "bg-white-500 hover:bg-lime-500 border border-gray-900 text-black",
+  link: "shadow-none text-black hover:text-lime-500",
   "normal-solid": "px-4 rounded-md shadow-none w-full bg-black hover:bg-black",
 };
 

@@ -18,7 +18,7 @@ const HomeGroup: FC<Omit<HomeGroupProps, "userId">> = ({
   const order = title?.length > 15 ? "4" : "3";
   return (
     <div
-      className={`flex aspect-video items-center justify-center space-y-1 overflow-hidden break-words rounded-md bg-violet-700 p-4 md:h-36`}
+      className={`flex aspect-video items-center justify-center space-y-1 overflow-hidden break-words rounded-md bg-lime-700 p-4 md:h-36`}
       style={{
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",

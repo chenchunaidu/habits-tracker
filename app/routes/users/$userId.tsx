@@ -25,7 +25,7 @@ export default function UserPage() {
         <Outlet />
       </Container>
       {!authenticated ? (
-        <div className="fixed bottom-0 flex w-full justify-center bg-violet-700  p-4">
+        <div className="fixed bottom-0 flex w-full justify-center bg-lime-700  p-4">
           <LoginBanner />
         </div>
       ) : (
