@@ -69,19 +69,6 @@ const CreateRecommendation: FC<CreateRecommendationProps> = ({
       <Form method="post">
         <div className="flex flex-col space-y-4">
           <CustomForm inputs={formSchema} actionData={actionData} />
-          <FormInput
-            formInputType="select"
-            label="Select Goal"
-            helperText="You can group the habit as a part of bigger goal like weight loss"
-            disabledMessage={<EmptyGroupsMessage />}
-            inputProps={{
-              id: "group",
-              name: "groupId",
-              options: groupOptions,
-              disabled: !groupOptions?.length,
-              defaultValue: groupDefaultValue,
-            }}
-          />
           <TransitionButton
             transition={transition}
             text={submitButtonLabelTexts}

@@ -19,7 +19,7 @@ export const createRecommendationFormData: FormInputProps[] = [
     inputProps: {
       id: "description",
       name: "description",
-      placeholder: "run for 30min from Home to KBR Park",
+      placeholder: "Run for 30min from Home to KBR Park",
     },
     helperText:
       "Add some description which can useful as a motivation for habit",

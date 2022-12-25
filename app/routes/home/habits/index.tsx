@@ -9,6 +9,7 @@ import {
   getRecommendationsByUserId,
 } from "~/models/recommendation.server";
 import { PlusIcon } from "@heroicons/react/24/solid";
+import Habit from "~/components/habits/habit";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requiredUser(request);
@@ -53,7 +54,16 @@ export default function Homepage() {
       image:
         "https://images.unsplash.com/photo-1577344718665-3e7c0c1ecf6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2938&q=80",
     },
+    {
+      id: 3,
+      title: "Read a book",
+      description: "Read book 10 pages",
+      image:
+        "https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+      completed: true,
+    },
   ];
+
   return (
     <Container className="space-y-4">
       <div className="flex items-center justify-between">
@@ -76,23 +86,15 @@ export default function Homepage() {
         </div>
       </div>
       <div className="space-y-2">
-        {habits.map((habit) => (
-          <div
-            key={habit.id}
-            className="flex items-center space-x-4 rounded-md bg-gradient-to-r
-            from-gray-100 to-gray-200 p-4 shadow-sm"
-          >
-            <input type="checkbox" className="h-6 w-6"></input>
-            <img
-              src={habit.image}
-              alt="habit.title"
-              className="h-9 w-9 rounded-md object-cover"
-            />
-            <div>
-              <div className="font-semibold">{habit.title}</div>
-              <div>{habit.description}</div>
-            </div>
-          </div>
+        {habits.map(({ id, description, title, image, completed }) => (
+          <Habit
+            description={description}
+            title={title}
+            image={image}
+            id={id}
+            key={id}
+            completed={completed}
+          />
         ))}
       </div>
     </Container>
