@@ -35,14 +35,14 @@ export interface CreateRecommendationProps {
 
 const EmptyGroupsMessage = () => (
   <>
-    Currently you have no groups.{" "}
+    Currently you have no goals.{" "}
     <Link
       to="/home/groups/new?redirectTo=home/recommendations/new"
       className="text-lime-500 underline"
     >
-      Create new group
+      Create new goal
     </Link>{" "}
-    before selecting a group
+    before selecting a goal
   </>
 );
 
@@ -50,7 +50,7 @@ const CreateRecommendation: FC<CreateRecommendationProps> = ({
   actionData,
   transition,
   groupOptions = [],
-  title = "New recommendation",
+  title = "New Habit",
   submitButtonLabel = "Add",
   submitButtonLabelTexts = {
     submitting: "Adding...",
@@ -71,8 +71,8 @@ const CreateRecommendation: FC<CreateRecommendationProps> = ({
           <CustomForm inputs={formSchema} actionData={actionData} />
           <FormInput
             formInputType="select"
-            label="Select Group"
-            helperText="Group names will be useful for grouping of your recommendations"
+            label="Select Goal"
+            helperText="You can group the habit as a part of bigger goal like weight loss"
             disabledMessage={<EmptyGroupsMessage />}
             inputProps={{
               id: "group",

@@ -2,16 +2,16 @@ import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { redirect } from "@remix-run/server-runtime";
 import { validateFormData } from "~/components/common/form/utils";
-import type { CreateRecommendationActionData } from "~/components/recommendations/new.form";
+import type { CreateRecommendationActionData } from "~/components/habits/new.form";
 import {
   editRecommendationFormData,
   createRecommendationValidationSchema,
-} from "~/components/recommendations/edit.data";
+} from "~/components/habits/edit.data";
 import {
   getRecommendationsById,
   updateRecommendation,
 } from "~/models/recommendation.server";
-import CreateRecommendation from "~/components/recommendations/new.form";
+import CreateRecommendation from "~/components/habits/new.form";
 import { requiredUser } from "~/lib/auth/auth";
 import Container from "~/components/common/container";
 import { getGroupsByUserId } from "~/models/group.server";
