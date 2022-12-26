@@ -95,7 +95,6 @@ export const requiredUser = async (request: Request): Promise<User> => {
 };
 
 export async function logout(request: Request) {
-  console.log("coming");
   return redirect("/login", {
     headers: {
       "Set-Cookie": await supabaseToken.serialize("sd"),

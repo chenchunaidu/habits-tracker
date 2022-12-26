@@ -1,9 +1,7 @@
 import arc from "@architect/functions";
 import randomstring from "randomstring";
-import {
-  getHabitStatusByUserIdAndDate,
-  HabitStatus,
-} from "./daily-habit.server";
+import type { HabitStatus } from "./daily-habit.server";
+import { getHabitStatusByUserIdAndDate } from "./daily-habit.server";
 
 export type Habit = {
   id: string;

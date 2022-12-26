@@ -36,7 +36,6 @@ export async function createUser({ id, ...user }: User) {
   });
 
   const newUser = await getUserById(id);
-  console.log(newUser, id, user);
   invariant(user, `User not found after being created. This should not happen`);
 
   return newUser;

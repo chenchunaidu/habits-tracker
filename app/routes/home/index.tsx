@@ -29,11 +29,10 @@ export const action: ActionFunction = async ({ request }) => {
   let habitId = formData.get("habitId");
   if (habitId && typeof habitId === "string") {
     const completed = formData.get("habitStatus");
-    console.log(completed);
     await createHabitStatus({
       userId: user.id,
       habitId,
-      completed: completed === "true" ? false : true,
+      completed: completed ? true : false,
     });
   }
   return { habitId };

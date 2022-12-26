@@ -24,8 +24,14 @@ habit
 
 habitStatus
   pk *String  # userId
-  sk **String # date
+  sk **String # habitId
 
 task
   pk *String  # userId
   sk **String # id
+
+@tables-indexes
+habitStatus
+  pk *String  # userId
+  statusDate **String
+  name byUserIdDate

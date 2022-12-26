@@ -9,7 +9,6 @@ import { getUserById } from "~/models/user.server";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const authenticated = await isAuthenticated(request);
-  console.log(authenticated);
   if (!params.userId) return { groups: [] };
   const user = await getUserById(params.userId);
   return { user, authenticated };

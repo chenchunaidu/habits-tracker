@@ -6,7 +6,7 @@ export type HabitStatus = {
   habitId: string;
   userId: string;
   createdAt: number;
-  date?: string;
+  statusDate?: string;
   completed?: boolean;
 };
 
@@ -17,38 +17,39 @@ export const getHabitStatusByUserId = async (userId: string) => {
     ExpressionAttributeValues: { ":pk": userId },
     ScanIndexForward: false,
   });
-  return dailyHabit.Items.map((item) => ({ ...item, date: item?.sk }));
+  return dailyHabit.Items.map((item) => ({ ...item, statusDate: item?.sk }));
 };
 
 export const getHabitStatusByUserIdAndDate = async (
   userId: string,
-  date: string
+  statusDate: string
 ) => {
   const db = await arc.tables();
   const dailyHabit = await db.habitStatus.query({
-    KeyConditionExpression: "pk = :pk AND sk = :sk",
-    ExpressionAttributeValues: { ":pk": userId, ":sk": date },
+    KeyConditionExpression: "pk = :pk AND statusDate = :statusDate",
+    IndexName: "byUserIdDate",
+    ExpressionAttributeValues: { ":pk": userId, ":statusDate": statusDate },
     ScanIndexForward: false,
   });
-  return dailyHabit.Items.map((item) => ({ ...item, date: item?.sk }));
+  return dailyHabit.Items.map((item) => ({ ...item, habitId: item?.sk }));
 };
 
 export const createHabitStatus = async ({
   userId,
   habitId,
   completed,
-}: Omit<HabitStatus, "id" | "createdAt" | "date">) => {
+}: Omit<HabitStatus, "id" | "createdAt" | "statusDate">) => {
   const db = await arc.tables();
   const time = Date.now();
   const id = time + randomstring.generate(4);
   //FIXME: Check if we need to pass date as argument
-  const date = new Date().toISOString().split("T")[0];
+  const statusDate = new Date().toISOString().split("T")[0];
   await db?.habitStatus.put({
     id: id,
-    sk: date,
+    sk: habitId,
     pk: userId,
     createdAt: time,
-    habitId,
+    statusDate,
     completed,
   });
 };
