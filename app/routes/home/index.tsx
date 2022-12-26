@@ -1,5 +1,5 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, NavLink, useLoaderData } from "@remix-run/react";
 import Button from "~/components/common/button";
 import Container from "~/components/common/container";
 import Heading from "~/components/common/heading";
@@ -11,6 +11,7 @@ import { HabitsContainer } from "~/components/habits/habits-container";
 import type { HabitProps } from "~/components/habits/habit";
 import type { User } from "~/models/user.server";
 import { createHabitStatus } from "~/models/daily-habit.server";
+import NavFloater from "~/components/habits/nav-floater";
 
 interface LoaderResponse {
   habits: HabitProps[];
@@ -72,8 +73,8 @@ export default function Homepage() {
           </div>
         </Progress>
       ) : (
-        <div className="flex w-full flex-col items-center justify-center space-y-2">
-          <TrashIcon className="h-36 w-36 text-slate-500"></TrashIcon>
+        <div className="flex w-full flex-col items-center justify-center space-y-3">
+          <TrashIcon className="h-24 w-24 text-slate-200"></TrashIcon>
           <div className="text-slate-500">You have no habits</div>
           <Link to="/home/habits/new">
             <Button>Add new habit</Button>
@@ -89,6 +90,7 @@ export default function Homepage() {
       )}
 
       <HabitsContainer habits={completedHabits} />
+      <NavFloater />
     </Container>
   );
 }
