@@ -4,7 +4,7 @@ import { NavLink } from "../common/header";
 export default function NavFloater() {
   return (
     <div className="flex justify-center">
-      <div className="fixed bottom-8 flex items-center space-x-2 rounded-full bg-white px-4 py-2 shadow-lg">
+      <div className="fixed bottom-8 flex items-center space-x-2 rounded-full bg-lime-400 px-4 py-2 shadow-lg">
         <NavLink to="/home" className="text-lg">
           Habits
         </NavLink>

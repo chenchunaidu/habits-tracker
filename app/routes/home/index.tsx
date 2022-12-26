@@ -1,27 +1,24 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { Link, NavLink, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import Button from "~/components/common/button";
-import Container from "~/components/common/container";
-import Heading from "~/components/common/heading";
 import { requiredUser } from "~/lib/auth/auth";
 import { getHabitsByUserIdAlongWithStatus } from "~/models/habit.server";
-import { TrashIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 import { Progress } from "~/components/common/progress";
 import { HabitsContainer } from "~/components/habits/habits-container";
 import type { HabitProps } from "~/components/habits/habit";
-import type { User } from "~/models/user.server";
 import { createHabitStatus } from "~/models/daily-habit.server";
 import NavFloater from "~/components/habits/nav-floater";
+import HomeContainer from "~/components/home/home-container";
 
 interface LoaderResponse {
   habits: HabitProps[];
-  user: User;
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requiredUser(request);
   const data = await getHabitsByUserIdAlongWithStatus(user.id);
-  return { habits: data, user };
+  return { habits: data };
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -40,26 +37,13 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Homepage() {
-  const { habits, user } = useLoaderData<LoaderResponse>();
-
-  // const location =
-  //   typeof window !== "undefined" ? window?.location?.origin : "";
+  const { habits } = useLoaderData<LoaderResponse>();
 
   const completedHabits = habits.filter((habit) => habit.completed);
   const inCompleteHabits = habits.filter((habit) => !habit.completed);
 
   return (
-    <Container className="space-y-4">
-      <div className="flex items-center justify-between">
-        <Heading order="4" className="md:text-lg">
-          Habits
-        </Heading>
-        <Link to="/home/habits/new">
-          <Button variant="link">
-            <PlusIcon className="h-6 w-6"></PlusIcon>
-          </Button>
-        </Link>
-      </div>
+    <HomeContainer header="Habits" addLink="/home/habits/new">
       {habits?.length ? (
         <Progress
           progress={(completedHabits?.length / (habits?.length || 1)) * 100}
@@ -91,6 +75,6 @@ export default function Homepage() {
 
       <HabitsContainer habits={completedHabits} />
       <NavFloater />
-    </Container>
+    </HomeContainer>
   );
 }
