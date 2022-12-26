@@ -5,7 +5,7 @@ import CustomForm from "../common/form/form";
 import { singUpFormData } from "./signup.data";
 import Text from "../common/text";
 import Image from "../common/image";
-import logo from "~/assets/images/recomnd-logo-with-text.svg";
+import logo from "~/assets/images/trackbit.svg";
 import TransitionButton from "../common/transition-button";
 import type { Transition } from "@remix-run/react/dist/transition";
 

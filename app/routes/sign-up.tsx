@@ -54,7 +54,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export const meta: MetaFunction = () => {
   return {
-    title: "create account | recomnd",
+    title: "create account | Trackbit",
   };
 };
 

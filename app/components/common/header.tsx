@@ -2,7 +2,7 @@ import type { FC, ReactNode } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import Image from "../common/image";
-import logo from "~/assets/images/recomnd-logo-with-text.svg";
+import logo from "~/assets/images/trackbit.svg";
 import Button from "./button";
 
 interface NavLinkProps {

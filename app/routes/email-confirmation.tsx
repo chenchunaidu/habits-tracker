@@ -1,7 +1,7 @@
 import React from "react";
 import Fullscreen from "~/components/common/full-screen";
 import Image from "~/components/common/image";
-import logo from "~/assets/images/recomnd-logo-with-text.svg";
+import logo from "~/assets/images/trackbit.svg";
 
 export default function EmailConfirmation() {
   return (

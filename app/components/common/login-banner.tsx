@@ -6,9 +6,9 @@ export default function LoginBanner() {
   return (
     <div className="flex w-full flex-col space-y-4 pb-2 text-white md:max-w-2xl md:flex-row md:space-x-2 md:space-y-0 md:pb-1">
       <div className="flex w-full flex-col">
-        <div className="text-lg font-semibold">Login to recomnd</div>
+        <div className="text-lg font-semibold">Login to Trackbit</div>
         <div className="text-xs md:text-sm">
-          Share your recommendations with your friends
+          Track your habits easily now with Trackbit
         </div>
       </div>
       <div className="flex w-full space-x-4 md:flex-row">

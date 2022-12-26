@@ -1,5 +1,5 @@
 @app
-recomnd-aws-72b8
+habit-tracker-72b8
 
 @aws
 timeout 900

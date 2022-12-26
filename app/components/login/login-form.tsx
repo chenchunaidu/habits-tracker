@@ -7,7 +7,7 @@ import Text from "../common/text";
 import type { Transition } from "@remix-run/react/dist/transition";
 import TransitionButton from "../common/transition-button";
 import Image from "../common/image";
-import logo from "~/assets/images/recomnd-logo-with-text.svg";
+import logo from "~/assets/images/trackbit.svg";
 
 export interface LoginActionData {
   data?: {

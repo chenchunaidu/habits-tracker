@@ -4,7 +4,7 @@ import React from "react";
 import Avatar from "../common/avatar";
 import Text from "../common/text";
 import Image from "../common/image";
-import logo from "~/assets/images/recomnd-logo-with-text.svg";
+import logo from "~/assets/images/trackbit.svg";
 import { Link } from "react-router-dom";
 
 interface ProfileProps {
