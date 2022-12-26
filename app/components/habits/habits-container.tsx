@@ -4,13 +4,9 @@ import Habit from "~/components/habits/habit";
 
 interface HabitsContainerProps {
   habits: HabitProps[];
-  onChange: (index: string) => void;
 }
 
-export const HabitsContainer: React.FC<HabitsContainerProps> = ({
-  habits,
-  onChange,
-}) => {
+export const HabitsContainer: React.FC<HabitsContainerProps> = ({ habits }) => {
   return (
     <div className="space-y-2">
       {habits?.map(
@@ -34,9 +30,6 @@ export const HabitsContainer: React.FC<HabitsContainerProps> = ({
             completed={completed}
             createdAt={createdAt}
             userId={userId}
-            onChange={() => {
-              onChange(id);
-            }}
             endTime={endTime}
             startTime={startTime}
           />

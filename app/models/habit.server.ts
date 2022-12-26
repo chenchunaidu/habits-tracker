@@ -1,6 +1,9 @@
 import arc from "@architect/functions";
 import randomstring from "randomstring";
-import { getHabitStatusByUserIdAndDate } from "./daily-habit.server";
+import {
+  getHabitStatusByUserIdAndDate,
+  HabitStatus,
+} from "./daily-habit.server";
 
 export type Habit = {
   id: string;
@@ -59,17 +62,40 @@ export const createHabit = async ({
 //   return updateRecommendation;
 // };
 
-export const getHabitsByUserId = async (userId: string) => {
+export const getHabitsByUserId = async (userId: string): Promise<Habit[]> => {
   const db = await arc.tables();
   const habits = await db.habit.query({
     KeyConditionExpression: "pk = :pk",
     ExpressionAttributeValues: { ":pk": userId },
     ScanIndexForward: false,
   });
-  const date = new Date().toISOString().split("T")[0];
-  const dailyStatus = await getHabitStatusByUserIdAndDate(userId, date);
-  console.log(dailyStatus);
   return habits.Items.map((item) => ({ ...item, id: item?.sk }));
+};
+
+const convertHabitStatusToObj = (habitStatus: HabitStatus[]) => {
+  const habitStatusObj: Record<string, boolean> = {};
+  habitStatus.forEach((habit) => {
+    habitStatusObj[habit.habitId] = !!habit.completed;
+  });
+  return habitStatusObj;
+};
+
+export const getHabitsByUserIdAlongWithStatus = async (userId: string) => {
+  const db = await arc.tables();
+  const habits = await db.habit.query({
+    KeyConditionExpression: "pk = :pk",
+    ExpressionAttributeValues: { ":pk": userId },
+    ScanIndexForward: false,
+  });
+
+  const date = new Date().toISOString().split("T")[0];
+  const habitStatus = await getHabitStatusByUserIdAndDate(userId, date);
+  const habitStatusObj = convertHabitStatusToObj(habitStatus);
+  return habits.Items.map((item) => ({
+    ...item,
+    id: item?.sk,
+    completed: habitStatusObj[item?.sk],
+  }));
 };
 
 export const getRecommendationsByGroupId = async (

@@ -4,15 +4,13 @@ import Button from "~/components/common/button";
 import Container from "~/components/common/container";
 import Heading from "~/components/common/heading";
 import { requiredUser } from "~/lib/auth/auth";
-import { deleteRecommendation, getHabitsByUserId } from "~/models/habit.server";
+import { getHabitsByUserIdAlongWithStatus } from "~/models/habit.server";
 import { TrashIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { Progress } from "~/components/common/progress";
-import { useCallback } from "react";
 import { HabitsContainer } from "~/components/habits/habits-container";
 import type { HabitProps } from "~/components/habits/habit";
 import type { User } from "~/models/user.server";
 import { createHabitStatus } from "~/models/daily-habit.server";
-import useRevalidate from "~/hooks/use-revalidate";
 
 interface LoaderResponse {
   habits: HabitProps[];
@@ -21,42 +19,34 @@ interface LoaderResponse {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requiredUser(request);
-  const data = await getHabitsByUserId(user.id);
+  const data = await getHabitsByUserIdAlongWithStatus(user.id);
   return { habits: data, user };
 };
 
 export const action: ActionFunction = async ({ request }) => {
   const user = await requiredUser(request);
   let formData = await request.formData();
-  let recommendationId = formData.get("recommendationId");
-  if (recommendationId && typeof recommendationId === "string") {
-    await deleteRecommendation(user.id, recommendationId);
+  let habitId = formData.get("habitId");
+  if (habitId && typeof habitId === "string") {
+    const completed = formData.get("habitStatus");
+    console.log(completed);
+    await createHabitStatus({
+      userId: user.id,
+      habitId,
+      completed: completed === "true" ? false : true,
+    });
   }
-  return { recommendationId };
+  return { habitId };
 };
 
 export default function Homepage() {
   const { habits, user } = useLoaderData<LoaderResponse>();
-  let revalidate = useRevalidate();
 
   // const location =
   //   typeof window !== "undefined" ? window?.location?.origin : "";
 
   const completedHabits = habits.filter((habit) => habit.completed);
   const inCompleteHabits = habits.filter((habit) => !habit.completed);
-
-  const onChanged = useCallback(
-    async (id: string) => {
-      const toggledHabit = habits.find((habit) => habit.id === id);
-      await createHabitStatus({
-        userId: user.id,
-        habitId: id,
-        completed: !toggledHabit?.completed,
-      });
-      revalidate();
-    },
-    [habits, user, revalidate]
-  );
 
   return (
     <Container className="space-y-4">
@@ -92,14 +82,14 @@ export default function Homepage() {
         </div>
       )}
 
-      <HabitsContainer habits={inCompleteHabits} onChange={onChanged} />
+      <HabitsContainer habits={inCompleteHabits} />
       {completedHabits.length ? (
         <div className="text-slate-700">Completed habits</div>
       ) : (
         <div />
       )}
 
-      <HabitsContainer habits={completedHabits} onChange={onChanged} />
+      <HabitsContainer habits={completedHabits} />
     </Container>
   );
 }

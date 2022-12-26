@@ -43,7 +43,6 @@ export const createHabitStatus = async ({
   const id = time + randomstring.generate(4);
   //FIXME: Check if we need to pass date as argument
   const date = new Date().toISOString().split("T")[0];
-  console.log(id, date, userId);
   await db?.habitStatus.put({
     id: id,
     sk: date,
