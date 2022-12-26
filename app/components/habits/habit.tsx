@@ -1,11 +1,9 @@
 import React from "react";
+import type { Habit as HabitType } from "~/models/habit.server";
+import Image from "../common/image";
 
-export interface HabitProps {
-  id: number;
+export interface HabitProps extends HabitType {
   completed?: boolean;
-  image?: string;
-  title: string;
-  description: string;
   onChange?: () => void;
 }
 
@@ -15,11 +13,12 @@ const Habit: React.FC<HabitProps> = ({
   image,
   title,
   description,
+  endTime,
+  startTime,
   onChange,
 }) => {
   return (
     <div>
-      {" "}
       <div
         key={id}
         className={`flex items-center space-x-4 rounded-md ${
@@ -31,18 +30,18 @@ const Habit: React.FC<HabitProps> = ({
         <input
           type="checkbox"
           className="h-6 w-6"
-          checked={completed}
+          checked={!!completed}
           onChange={onChange}
         ></input>
-        <img
+        <Image
           src={image}
-          alt="habit.title"
+          alt={title}
           className="h-12 w-12 rounded-md object-cover"
         />
         <div>
           <div className="font-semibold">{title}</div>
           <div className="text-sm font-semibold text-slate-600">
-            9:00AM - 9:30 AM
+            {startTime} - {endTime}
           </div>
           <div className="text-sm text-slate-700">{description}</div>
         </div>

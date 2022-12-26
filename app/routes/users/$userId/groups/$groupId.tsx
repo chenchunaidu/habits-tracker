@@ -2,7 +2,7 @@ import type { Group } from "~/models/group.server";
 import { getGroupByGroupId } from "~/models/group.server";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getRecommendationsByGroupId } from "~/models/recommendation.server";
+import { getRecommendationsByGroupId } from "~/models/habit.server";
 import { getUserById } from "~/models/user.server";
 import GroupComp from "~/components/user/group";
 

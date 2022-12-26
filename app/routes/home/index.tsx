@@ -4,20 +4,25 @@ import Button from "~/components/common/button";
 import Container from "~/components/common/container";
 import Heading from "~/components/common/heading";
 import { requiredUser } from "~/lib/auth/auth";
-import {
-  deleteRecommendation,
-  getRecommendationsByUserId,
-} from "~/models/recommendation.server";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { deleteRecommendation, getHabitsByUserId } from "~/models/habit.server";
+import { TrashIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { Progress } from "~/components/common/progress";
-
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { HabitsContainer } from "~/components/habits/habits-container";
+import type { HabitProps } from "~/components/habits/habit";
+import type { User } from "~/models/user.server";
+import { createHabitStatus } from "~/models/daily-habit.server";
+import useRevalidate from "~/hooks/use-revalidate";
+
+interface LoaderResponse {
+  habits: HabitProps[];
+  user: User;
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requiredUser(request);
-  const data = await getRecommendationsByUserId(user.id);
-  return { recommendations: data, user };
+  const data = await getHabitsByUserId(user.id);
+  return { habits: data, user };
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -31,57 +36,26 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Homepage() {
-  const { recommendations, user } = useLoaderData();
-  const location =
-    typeof window !== "undefined" ? window?.location?.origin : "";
+  const { habits, user } = useLoaderData<LoaderResponse>();
+  let revalidate = useRevalidate();
 
-  const [habits, setHabits] = useState([
-    {
-      id: 1,
-      title: "Walking",
-      description: "Walk for 30 mins",
-      image:
-        "https://images.unsplash.com/photo-1486218119243-13883505764c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZXhlcmNpc2V8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
-    },
-    {
-      id: 2,
-      title: "Gym",
-      description: "Go to gym for 30min",
-      image:
-        "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-    },
-    {
-      id: 3,
-      title: "Meditation",
-      description: "Do meditation for 25min",
-      image:
-        "https://images.unsplash.com/photo-1577344718665-3e7c0c1ecf6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2938&q=80",
-    },
-    {
-      id: 4,
-      title: "Read a book",
-      description: "Read book 10 pages",
-      image:
-        "https://images.unsplash.com/photo-1519682577862-22b62b24e493?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      completed: true,
-    },
-  ]);
+  // const location =
+  //   typeof window !== "undefined" ? window?.location?.origin : "";
 
   const completedHabits = habits.filter((habit) => habit.completed);
   const inCompleteHabits = habits.filter((habit) => !habit.completed);
 
   const onChanged = useCallback(
-    (id: number) => {
-      const index = habits.findIndex((habit) => habit.id === id);
-      if (index >= 0) {
-        habits[index] = {
-          ...habits[index],
-          completed: !habits[index].completed,
-        };
-        setHabits([...habits]);
-      }
+    async (id: string) => {
+      const toggledHabit = habits.find((habit) => habit.id === id);
+      await createHabitStatus({
+        userId: user.id,
+        habitId: id,
+        completed: !toggledHabit?.completed,
+      });
+      revalidate();
     },
-    [habits]
+    [habits, user, revalidate]
   );
 
   return (
@@ -96,7 +70,7 @@ export default function Homepage() {
           </Button>
         </Link>
       </div>
-      {habits?.length && (
+      {habits?.length ? (
         <Progress
           progress={(completedHabits?.length / (habits?.length || 1)) * 100}
         >
@@ -108,6 +82,14 @@ export default function Homepage() {
             tasks
           </div>
         </Progress>
+      ) : (
+        <div className="flex w-full flex-col items-center justify-center space-y-2">
+          <TrashIcon className="h-36 w-36 text-slate-500"></TrashIcon>
+          <div className="text-slate-500">You have no habits</div>
+          <Link to="/home/habits/new">
+            <Button>Add new habit</Button>
+          </Link>
+        </div>
       )}
 
       <HabitsContainer habits={inCompleteHabits} onChange={onChanged} />

@@ -17,7 +17,7 @@ const Image: React.FC<ImageProps> = ({
   fallback,
   ...props
 }) => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(!src);
   if (error) {
     return <div>{fallback}</div>;
   }

@@ -1,4 +1,4 @@
-import type { Recommendations } from "~/models/recommendation.server";
+import type { Recommendations } from "~/models/habit.server";
 import type { FC } from "react";
 import { Link, useFetcher } from "@remix-run/react";
 import DeleteRecommendationButton from "./delete-button";

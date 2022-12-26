@@ -2,13 +2,13 @@ import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { redirect } from "@remix-run/server-runtime";
 import { validateFormData } from "~/components/common/form/utils";
-import type { CreateRecommendationActionData } from "~/components/habits/new.form";
+import type { createHabitActionData } from "~/components/habits/new.form";
 import {
-  createRecommendationFormData,
-  createRecommendationValidationSchema,
+  createHabitFormData,
+  createHabitValidationSchema,
 } from "~/components/habits/new.data";
-import { createRecommendation } from "~/models/recommendation.server";
-import CreateRecommendation from "~/components/habits/new.form";
+import { createHabit } from "~/models/habit.server";
+import CreateHabit from "~/components/habits/new.form";
 import { requiredUser } from "~/lib/auth/auth";
 import Container from "~/components/common/container";
 import { getGroupsByUserId } from "~/models/group.server";
@@ -29,7 +29,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const { errors, formOutput } = await validateFormData(
     formData,
     [
-      ...createRecommendationFormData,
+      ...createHabitFormData,
       {
         inputProps: {
           id: "group",
@@ -37,11 +37,11 @@ export const action: ActionFunction = async ({ request, params }) => {
         },
       },
     ],
-    createRecommendationValidationSchema
+    createHabitValidationSchema
   );
   if (!errors) {
     try {
-      const res = await createRecommendation({
+      const res = await createHabit({
         ...formOutput,
         userId: user.id,
       });
@@ -54,14 +54,14 @@ export const action: ActionFunction = async ({ request, params }) => {
   return { errors, data: formOutput };
 };
 
-export default function CreateRecommendationPage() {
+export default function CreateHabitPage() {
   const { groupOptions } = useLoaderData();
-  const actionData = useActionData() as CreateRecommendationActionData;
+  const actionData = useActionData() as createHabitActionData;
   const transition = useTransition();
 
   return (
     <Container className="h-full w-full px-0 md:w-1/2">
-      <CreateRecommendation
+      <CreateHabit
         actionData={actionData}
         transition={transition}
         groupOptions={groupOptions}

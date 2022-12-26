@@ -1,17 +1,15 @@
 import type { FC } from "react";
-import { Form, Link } from "@remix-run/react";
+import { Form } from "@remix-run/react";
 import type { CustomFormProps } from "../common/form/form";
 import CustomForm from "../common/form/form";
-import { createRecommendationFormData } from "./new.data";
+import { createHabitFormData } from "./new.data";
 import Heading from "../common/heading";
 import type { TransitionButtonText } from "../common/transition-button";
 import TransitionButton from "../common/transition-button";
 import type { Transition } from "@remix-run/react/dist/transition";
 import type { Option } from "../common/select";
 
-import FormInput from "../common/form/input";
-
-export interface CreateRecommendationActionData {
+export interface createHabitActionData {
   data?: {
     title?: string;
     description?: string;
@@ -22,8 +20,8 @@ export interface CreateRecommendationActionData {
   };
 }
 
-export interface CreateRecommendationProps {
-  actionData: CreateRecommendationActionData;
+export interface createHabitProps {
+  actionData: createHabitActionData;
   transition?: Transition;
   groupOptions?: Option[];
   title?: string;
@@ -33,31 +31,16 @@ export interface CreateRecommendationProps {
   groupDefaultValue?: string;
 }
 
-const EmptyGroupsMessage = () => (
-  <>
-    Currently you have no goals.{" "}
-    <Link
-      to="/home/groups/new?redirectTo=home/recommendations/new"
-      className="text-lime-500 underline"
-    >
-      Create new goal
-    </Link>{" "}
-    before selecting a goal
-  </>
-);
-
-const CreateRecommendation: FC<CreateRecommendationProps> = ({
+const CreateHabit: FC<createHabitProps> = ({
   actionData,
   transition,
-  groupOptions = [],
   title = "New Habit",
   submitButtonLabel = "Add",
   submitButtonLabelTexts = {
     submitting: "Adding...",
     actionRedirecting: "Added redirecting...",
   },
-  formSchema = createRecommendationFormData,
-  groupDefaultValue,
+  formSchema = createHabitFormData,
 }) => {
   return (
     <div className="flex flex-col space-y-4 rounded-md bg-white p-10 shadow-sm">
@@ -81,4 +64,4 @@ const CreateRecommendation: FC<CreateRecommendationProps> = ({
   );
 };
 
-export default CreateRecommendation;
+export default CreateHabit;

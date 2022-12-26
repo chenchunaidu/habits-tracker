@@ -18,10 +18,14 @@ scrap-and-update-recommendation
 user
   pk *String
 
-recommendations
+habit
   pk *String  # userId
   sk **String # id
 
-groups
+habitStatus
+  pk *String  # userId
+  sk **String # date
+
+task
   pk *String  # userId
   sk **String # id

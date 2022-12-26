@@ -1,13 +1,13 @@
 import type { Group } from "~/models/group.server";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getRecommendationsByUserId } from "~/models/recommendation.server";
+import { getHabitsByUserId } from "~/models/habit.server";
 import { getUserById } from "~/models/user.server";
 import Cards from "~/components/user/cards";
 
 export const loader: LoaderFunction = async ({ params }) => {
   if (!params.userId) return { groups: [] };
-  const cards = await getRecommendationsByUserId(params.userId);
+  const cards = await getHabitsByUserId(params.userId);
   const user = await getUserById(params.userId);
   return { cards: cards, user };
 };

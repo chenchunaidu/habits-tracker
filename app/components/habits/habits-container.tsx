@@ -4,7 +4,7 @@ import Habit from "~/components/habits/habit";
 
 interface HabitsContainerProps {
   habits: HabitProps[];
-  onChange: (index: number) => void;
+  onChange: (index: string) => void;
 }
 
 export const HabitsContainer: React.FC<HabitsContainerProps> = ({
@@ -13,17 +13,35 @@ export const HabitsContainer: React.FC<HabitsContainerProps> = ({
 }) => {
   return (
     <div className="space-y-2">
-      {habits?.map(({ id, description, title, image, completed }, index) => (
-        <Habit
-          description={description}
-          title={title}
-          image={image}
-          id={id}
-          key={id}
-          completed={completed}
-          onChange={() => onChange(id)}
-        />
-      ))}
+      {habits?.map(
+        ({
+          id,
+          description,
+          title,
+          image,
+          completed,
+          createdAt,
+          userId,
+          endTime,
+          startTime,
+        }) => (
+          <Habit
+            description={description}
+            title={title}
+            image={image}
+            id={id}
+            key={id}
+            completed={completed}
+            createdAt={createdAt}
+            userId={userId}
+            onChange={() => {
+              onChange(id);
+            }}
+            endTime={endTime}
+            startTime={startTime}
+          />
+        )
+      )}
     </div>
   );
 };

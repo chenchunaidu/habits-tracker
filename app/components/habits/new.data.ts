@@ -1,12 +1,12 @@
 import type { FormInputProps } from "../common/form/input";
 import * as yup from "yup";
 
-export const createRecommendationFormData: FormInputProps[] = [
+export const createHabitFormData: FormInputProps[] = [
   {
     label: "Name",
     inputProps: {
-      id: "habitName",
-      name: "habitName",
+      id: "title",
+      name: "title",
       autoFocus: true,
       placeholder: "Jogging",
       required: true,
@@ -44,7 +44,6 @@ export const createRecommendationFormData: FormInputProps[] = [
   },
 ];
 
-export const createRecommendationValidationSchema = yup.object().shape({
-  url: yup.string().required().url(),
-  groupId: yup.string(),
+export const createHabitValidationSchema = yup.object().shape({
+  title: yup.string().required(),
 });

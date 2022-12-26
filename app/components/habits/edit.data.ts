@@ -42,6 +42,6 @@ export const editRecommendationFormData: FormInputProps[] = [
   },
 ];
 
-export const createRecommendationValidationSchema = yup.object().shape({
+export const createHabitValidationSchema = yup.object().shape({
   groupId: yup.string(),
 });
