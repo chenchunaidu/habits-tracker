@@ -20,7 +20,9 @@ const Task: React.FC<TaskProps> = (task) => {
       <div className="space-y-1">
         <div className="flex items-start justify-between">
           <div className="flex space-x-2">
-            <input type="checkbox" className="mt-2 h-4 w-4" />
+            <div>
+              <input type="checkbox" className="mt-2 h-4 w-4" />
+            </div>
             <div className="text-lg font-semibold text-stone-700">
               {task.title}
             </div>

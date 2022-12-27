@@ -12,12 +12,14 @@ const Subtask: React.FC<SubtaskProps> = (subtask) => {
       key={subtask.id}
       className="flex items-start space-x-4 rounded-md bg-white p-4 text-stone-700"
     >
-      <div className="space-y-1">
-        <div className="flex items-center space-x-2">
-          <input type="checkbox" className="h-4 w-4" />
-          <div className="font-semibold">{subtask.title}</div>
+      <div className="flex items-start space-x-2">
+        <div>
+          <input type="checkbox" className="mt-1 h-4 w-4" />
         </div>
-        <div>{subtask.description}</div>
+        <div>
+          <div className="font-semibold">{subtask.title}</div>
+          <div>{subtask.description}</div>
+        </div>
       </div>
     </div>
   );

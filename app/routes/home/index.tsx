@@ -1,15 +1,15 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import Button from "~/components/common/button";
+import { useLoaderData } from "@remix-run/react";
 import { requiredUser } from "~/lib/auth/auth";
 import { getHabitsByUserIdAlongWithStatus } from "~/models/habit.server";
-import { TrashIcon } from "@heroicons/react/24/solid";
 import { Progress } from "~/components/common/progress";
 import { HabitsContainer } from "~/components/habits/habits-container";
 import type { HabitProps } from "~/components/habits/habit";
 import { createHabitStatus } from "~/models/daily-habit.server";
 import NavFloater from "~/components/habits/nav-floater";
 import HomeContainer from "~/components/home/home-container";
+import Empty from "~/components/common/empty";
+import Image from "~/components/common/image";
 
 interface LoaderResponse {
   habits: HabitProps[];
@@ -45,35 +45,35 @@ export default function Homepage() {
   return (
     <HomeContainer header="Habits" addLink="/home/habits/new">
       {habits?.length ? (
-        <Progress
-          progress={(completedHabits?.length / (habits?.length || 1)) * 100}
-        >
-          <div className="text-sm text-slate-700">
-            Completed{" "}
-            <span className="font-semibold text-black">
-              {completedHabits?.length} / {habits?.length}
-            </span>{" "}
-            tasks
-          </div>
-        </Progress>
-      ) : (
-        <div className="flex w-full flex-col items-center justify-center space-y-3">
-          <TrashIcon className="h-24 w-24 text-slate-200"></TrashIcon>
-          <div className="text-slate-500">You have no habits</div>
-          <Link to="/home/habits/new">
-            <Button>Add new habit</Button>
-          </Link>
+        <div className="space-y-2">
+          <Progress
+            progress={(completedHabits?.length / (habits?.length || 1)) * 100}
+          >
+            <div className="text-sm text-slate-700">
+              Completed{" "}
+              <span className="font-semibold text-black">
+                {completedHabits?.length} / {habits?.length}
+              </span>{" "}
+              tasks
+            </div>
+          </Progress>
+          <HabitsContainer habits={inCompleteHabits} />
+          {completedHabits.length ? (
+            <div className="text-slate-700">Completed habits</div>
+          ) : (
+            <div />
+          )}
+
+          <HabitsContainer habits={completedHabits} />
         </div>
-      )}
-
-      <HabitsContainer habits={inCompleteHabits} />
-      {completedHabits.length ? (
-        <div className="text-slate-700">Completed habits</div>
       ) : (
-        <div />
+        <Empty
+          buttonLabel="Add new habit"
+          buttonLink="/home/habits/new"
+          label="You have no habits"
+        />
       )}
 
-      <HabitsContainer habits={completedHabits} />
       <NavFloater />
     </HomeContainer>
   );

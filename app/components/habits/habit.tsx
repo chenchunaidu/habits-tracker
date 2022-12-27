@@ -35,14 +35,16 @@ const Habit: React.FC<HabitProps> = ({
       } p-4 shadow-sm`}
     >
       <input type="hidden" value={id} name="habitId" />
-      <input
-        name="habitStatus"
-        id="habitStatus"
-        type="checkbox"
-        className="h-6 w-6"
-        checked={checked}
-        onChange={(e) => toggle.submit(e.target.form)}
-      />
+      <div>
+        <input
+          name="habitStatus"
+          id="habitStatus"
+          type="checkbox"
+          className="h-6 w-6"
+          checked={checked}
+          onChange={(e) => toggle.submit(e.target.form)}
+        />
+      </div>
       <Image
         src={image}
         alt={title}
