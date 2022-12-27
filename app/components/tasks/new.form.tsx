@@ -2,14 +2,14 @@ import type { FC } from "react";
 import { Form } from "@remix-run/react";
 import type { CustomFormProps } from "../common/form/form";
 import CustomForm from "../common/form/form";
-import { createHabitFormData } from "./new.data";
+import { createTaskFormData } from "./new.data";
 import Heading from "../common/heading";
 import type { TransitionButtonText } from "../common/transition-button";
 import TransitionButton from "../common/transition-button";
 import type { Transition } from "@remix-run/react/dist/transition";
 import type { Option } from "../common/select";
 
-export interface createHabitActionData {
+export interface createTaskActionData {
   data?: {
     title?: string;
     description?: string;
@@ -20,8 +20,8 @@ export interface createHabitActionData {
   };
 }
 
-export interface createHabitProps {
-  actionData: createHabitActionData;
+export interface createTaskProps {
+  actionData: createTaskActionData;
   transition?: Transition;
   title?: string;
   submitButtonLabel?: string;
@@ -29,16 +29,16 @@ export interface createHabitProps {
   formSchema?: CustomFormProps["inputs"];
 }
 
-const CreateHabit: FC<createHabitProps> = ({
+const CreateTask: FC<createTaskProps> = ({
   actionData,
   transition,
-  title = "New Habit",
+  title = "New Task",
   submitButtonLabel = "Add",
   submitButtonLabelTexts = {
     submitting: "Adding...",
     actionRedirecting: "Added redirecting...",
   },
-  formSchema = createHabitFormData,
+  formSchema = createTaskFormData,
 }) => {
   return (
     <div className="flex flex-col space-y-4 rounded-md bg-white p-10 shadow-sm">
@@ -62,4 +62,4 @@ const CreateHabit: FC<createHabitProps> = ({
   );
 };
 
-export default CreateHabit;
+export default CreateTask;

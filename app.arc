@@ -28,8 +28,17 @@ task
   pk *String  # userId
   sk **String # id
 
+subtask
+  pk *String  # userId
+  sk **String # id
+
 @tables-indexes
 habitStatus
   pk *String  # userId
   statusDate **String
   name byUserIdDate
+
+subtask
+  pk *String  # userId
+  taskId **String
+  name byUserAndTaskId

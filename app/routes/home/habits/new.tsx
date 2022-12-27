@@ -11,17 +11,6 @@ import { createHabit } from "~/models/habit.server";
 import CreateHabit from "~/components/habits/new.form";
 import { requiredUser } from "~/lib/auth/auth";
 import Container from "~/components/common/container";
-import { getGroupsByUserId } from "~/models/group.server";
-
-export const loader: LoaderFunction = async ({ request }) => {
-  const user = await requiredUser(request);
-  const groups = await getGroupsByUserId(user.id);
-  const options = groups?.map((group) => ({
-    label: group.title,
-    value: group.id,
-  }));
-  return { groupOptions: options };
-};
 
 export const action: ActionFunction = async ({ request, params }) => {
   const user = await requiredUser(request);
@@ -55,17 +44,12 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function CreateHabitPage() {
-  const { groupOptions } = useLoaderData();
   const actionData = useActionData() as createHabitActionData;
   const transition = useTransition();
 
   return (
     <Container className="h-full w-full px-0 md:w-1/2">
-      <CreateHabit
-        actionData={actionData}
-        transition={transition}
-        groupOptions={groupOptions}
-      />
+      <CreateHabit actionData={actionData} transition={transition} />
     </Container>
   );
 }

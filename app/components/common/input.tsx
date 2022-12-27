@@ -12,7 +12,7 @@ const Input: React.FC<InputProps> = ({ className, ...props }) => {
     <input
       {...props}
       className={twMerge(
-        "block w-full rounded-md border border-gray-400 p-2.5 text-sm text-gray-900 focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500",
+        "block w-full rounded-md border border-gray-400 p-2.5 text-sm text-gray-900 focus:outline-none focus:ring-0",
         className
       )}
     ></input>
