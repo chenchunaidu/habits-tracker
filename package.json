@@ -42,7 +42,6 @@
     "bcryptjs": "2.4.3",
     "cuid": "^2.1.8",
     "isbot": "^3.5.3",
-    "lexical": "^0.7.5",
     "open-graph-scraper": "^4.11.1",
     "randomstring": "^1.2.2",
     "react": "^18.2.0",
