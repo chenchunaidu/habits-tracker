@@ -30,6 +30,7 @@
     "@architect/functions": "^5.2.2",
     "@architect/plugin-typescript": "^0.3.0",
     "@heroicons/react": "^2.0.11",
+    "@lexical/react": "^0.7.5",
     "@remix-run/architect": "^1.7.2",
     "@remix-run/node": "^1.7.2",
     "@remix-run/react": "^1.7.2",
