@@ -1,7 +1,7 @@
 import { useFetcher } from "@remix-run/react";
 import React from "react";
 
-const Editor = React.lazy(() => import("../common/lexical"));
+const Editor = React.lazy(() => import("../common/editor"));
 
 export interface SubtaskProps {
   id: string;

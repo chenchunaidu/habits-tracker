@@ -4,7 +4,7 @@ import Button from "../common/button";
 import type { SubtaskProps } from "./subtask";
 import Subtask from "./subtask";
 
-const Editor = React.lazy(() => import("../common/lexical"));
+const Editor = React.lazy(() => import("../common/editor"));
 export interface TaskProps {
   id: string;
   title: string;
