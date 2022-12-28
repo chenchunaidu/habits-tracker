@@ -13,7 +13,6 @@ import CreateSubTask from "~/components/subtask/new.form";
 import { createSubTask } from "~/models/subtask.server";
 
 export const action: ActionFunction = async ({ request, params }) => {
-  console.log(params);
   const user = await requiredUser(request);
   const formData = await request.formData();
   const { errors, formOutput } = await validateFormData(

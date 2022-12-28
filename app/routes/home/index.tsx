@@ -9,7 +9,6 @@ import { createHabitStatus } from "~/models/daily-habit.server";
 import NavFloater from "~/components/habits/nav-floater";
 import HomeContainer from "~/components/home/home-container";
 import Empty from "~/components/common/empty";
-import Image from "~/components/common/image";
 
 interface LoaderResponse {
   habits: HabitProps[];

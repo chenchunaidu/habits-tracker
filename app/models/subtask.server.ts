@@ -2,13 +2,13 @@ import arc from "@architect/functions";
 import randomstring from "randomstring";
 
 export type Subtask = {
-  id: number;
+  id: string;
   taskId: string;
   userId: string;
   title: string;
   description: string;
   createdAt: number;
-  status: string;
+  completed: boolean;
 };
 
 export const createSubTask = async ({ userId, ...task }: Subtask) => {
@@ -44,4 +44,26 @@ export const convertSubtasksIntoObj = async (subtasks: Subtask[]) => {
     }
   });
   return subtaskObj;
+};
+
+export const updateSubTask = async ({
+  userId,
+  id,
+  completed,
+}: Pick<Subtask, "id" | "userId" | "completed">) => {
+  const db = await arc.tables();
+  const time = Date.now();
+  const currentSubTask = await db.subtask.query({
+    KeyConditionExpression: "pk = :pk AND sk = :sk",
+    ExpressionAttributeValues: { ":pk": userId, ":sk": id },
+    ScanIndexForward: false,
+  });
+
+  if (currentSubTask.Items.length) {
+    await db.subtask.put({
+      ...currentSubTask.Items[0],
+      completed: completed,
+      updatedAt: time,
+    });
+  }
 };

@@ -26,7 +26,6 @@ const Habit: React.FC<HabitProps> = ({
   return (
     <toggle.Form
       method="put"
-      // action={`habits/toggle-status`}
       key={id}
       className={`flex items-center space-x-4 rounded-md ${
         checked

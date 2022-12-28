@@ -16,7 +16,7 @@ const Task: React.FC<TaskProps> = (task) => {
   const toggle = useFetcher();
   const checked = toggle.submission
     ? // use the optimistic version
-      Boolean(toggle.submission.formData.get("habitStatus"))
+      Boolean(toggle.submission.formData.get("taskStatus"))
     : // use the normal version
       task.completed;
   return (
@@ -27,11 +27,16 @@ const Task: React.FC<TaskProps> = (task) => {
       <div className="space-y-1">
         <div className="flex items-start justify-between">
           <div className="flex space-x-2">
-            <toggle.Form method="put" action="task/status-update">
+            <toggle.Form method="put">
+              <input type="hidden" value="task-status-update" name="formName" />
+              <input type="hidden" value={task.id} name="taskId" />
               <input
                 type="checkbox"
                 className="mt-2 h-4 w-4"
                 checked={checked}
+                name="taskStatus"
+                id="taskStatus"
+                onChange={(e) => toggle.submit(e.target.form)}
               />
             </toggle.Form>
             <div className="text-lg font-semibold text-stone-700">
@@ -46,9 +51,15 @@ const Task: React.FC<TaskProps> = (task) => {
         </div>
         <div>{task.description}</div>
       </div>
-      {task?.subtasks?.map(({ id, description, title }) => {
+      {task?.subtasks?.map(({ id, description, title, completed }) => {
         return (
-          <Subtask key={id} title={title} description={description} id={id} />
+          <Subtask
+            key={id}
+            title={title}
+            description={description}
+            id={id}
+            completed={completed}
+          />
         );
       })}
     </div>
