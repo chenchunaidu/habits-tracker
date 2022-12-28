@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link, useFetcher } from "@remix-run/react";
 import React from "react";
 import Button from "../common/button";
 import type { SubtaskProps } from "./subtask";
@@ -9,9 +9,16 @@ export interface TaskProps {
   title: string;
   description: string;
   subtasks: SubtaskProps[];
+  completed: boolean;
 }
 
 const Task: React.FC<TaskProps> = (task) => {
+  const toggle = useFetcher();
+  const checked = toggle.submission
+    ? // use the optimistic version
+      Boolean(toggle.submission.formData.get("habitStatus"))
+    : // use the normal version
+      task.completed;
   return (
     <div
       key={task.id}
@@ -20,9 +27,13 @@ const Task: React.FC<TaskProps> = (task) => {
       <div className="space-y-1">
         <div className="flex items-start justify-between">
           <div className="flex space-x-2">
-            <div>
-              <input type="checkbox" className="mt-2 h-4 w-4" />
-            </div>
+            <toggle.Form method="put" action="task/status-update">
+              <input
+                type="checkbox"
+                className="mt-2 h-4 w-4"
+                checked={checked}
+              />
+            </toggle.Form>
             <div className="text-lg font-semibold text-stone-700">
               {task.title}
             </div>

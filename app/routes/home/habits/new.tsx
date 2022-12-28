@@ -1,5 +1,5 @@
-import { useActionData, useLoaderData, useTransition } from "@remix-run/react";
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
+import { useActionData, useTransition } from "@remix-run/react";
+import type { ActionFunction } from "@remix-run/server-runtime";
 import { redirect } from "@remix-run/server-runtime";
 import { validateFormData } from "~/components/common/form/utils";
 import type { createHabitActionData } from "~/components/habits/new.form";
