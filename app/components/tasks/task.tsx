@@ -1,10 +1,10 @@
 import { Link, useFetcher } from "@remix-run/react";
 import React from "react";
 import Button from "../common/button";
-import Editor from "../common/lexical/lexical";
 import type { SubtaskProps } from "./subtask";
 import Subtask from "./subtask";
 
+const Editor = React.lazy(() => import("../common/lexical/lexical"));
 export interface TaskProps {
   id: string;
   title: string;

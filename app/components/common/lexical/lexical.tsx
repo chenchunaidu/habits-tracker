@@ -18,8 +18,6 @@ import { useState } from "react";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import type { EditorState } from "lexical";
 
-// import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-
 interface EditorProps {
   editable?: boolean;
   name?: string;

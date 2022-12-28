@@ -1,5 +1,6 @@
 import React from "react";
-import Editor from "./lexical/lexical";
+
+const Editor = React.lazy(() => import("../common/lexical/lexical"));
 
 interface RichTextAreaProps {
   name: string;
