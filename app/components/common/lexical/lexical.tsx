@@ -16,7 +16,7 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import type { FC } from "react";
 import { useState } from "react";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import type { EditorState } from "lexical";
+// import type { EditorState } from "lexical";
 
 interface EditorProps {
   editable?: boolean;
@@ -26,7 +26,7 @@ interface EditorProps {
 
 const Editor: FC<EditorProps> = ({ editable = false, name, initialState }) => {
   const [editorState, setEditorState] = useState("");
-  function onChange(state: EditorState) {
+  function onChange(state) {
     state.read(() => {
       setEditorState(JSON.stringify(state));
     });
