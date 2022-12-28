@@ -9,7 +9,6 @@ import Text from "../text";
 import type { SelectProps } from "../select";
 import Select from "../select";
 import type { RichTextAreaProps } from "../rich-text-area";
-import RichTextArea from "../rich-text-area";
 
 type FormInputTypes = "default" | "textarea" | "select" | "richTextarea";
 
@@ -27,7 +26,7 @@ const FormInputs = {
   default: Input,
   textarea: TextArea,
   select: Select,
-  richTextarea: RichTextArea,
+  richTextarea: TextArea,
 };
 
 const FormInput = React.forwardRef<

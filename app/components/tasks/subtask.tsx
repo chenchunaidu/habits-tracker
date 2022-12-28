@@ -1,8 +1,6 @@
 import { useFetcher } from "@remix-run/react";
 import React from "react";
 
-const Editor = React.lazy(() => import("../common/editor"));
-
 export interface SubtaskProps {
   id: string;
   title: string;
@@ -38,7 +36,7 @@ const Subtask: React.FC<SubtaskProps> = (subtask) => {
         </toggle.Form>
         <div>
           <div className="font-semibold">{subtask.title}</div>
-          <Editor initialState={subtask.description} />
+          <div>{subtask.description}</div>
         </div>
       </div>
     </div>

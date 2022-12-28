@@ -4,7 +4,6 @@ import Button from "../common/button";
 import type { SubtaskProps } from "./subtask";
 import Subtask from "./subtask";
 
-const Editor = React.lazy(() => import("../common/editor"));
 export interface TaskProps {
   id: string;
   title: string;
@@ -50,7 +49,7 @@ const Task: React.FC<TaskProps> = (task) => {
             </Button>
           </Link>
         </div>
-        <Editor initialState={task.description} />
+        <div>{task.description}</div>
       </div>
       {task?.subtasks?.map(({ id, description, title, completed }) => {
         return (
