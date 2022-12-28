@@ -15,7 +15,7 @@ export const createTaskFormData: FormInputProps[] = [
   },
   {
     label: "Description",
-    formInputType: "textarea",
+    formInputType: "richTextarea",
     inputProps: {
       id: "description",
       name: "description",

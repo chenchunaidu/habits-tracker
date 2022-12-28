@@ -29,6 +29,8 @@
   outline: 0;
   padding: 0.625rem;
   caret-color: #444;
+  border: 1px solid rgb(156 163 175);
+  border-radius: 0.375rem;
 }
 
 .editor-placeholder {

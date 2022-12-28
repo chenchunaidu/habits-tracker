@@ -8,8 +8,10 @@ import TextArea from "../text-area";
 import Text from "../text";
 import type { SelectProps } from "../select";
 import Select from "../select";
+import type { RichTextAreaProps } from "../rich-text-area";
+import RichTextArea from "../rich-text-area";
 
-type FormInputTypes = "default" | "textarea" | "select";
+type FormInputTypes = "default" | "textarea" | "select" | "richTextarea";
 
 interface FormInputProps {
   error?: string;
@@ -25,10 +27,14 @@ const FormInputs = {
   default: Input,
   textarea: TextArea,
   select: Select,
+  richTextarea: RichTextArea,
 };
 
 const FormInput = React.forwardRef<
-  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement,
+  | HTMLInputElement
+  | HTMLTextAreaElement
+  | HTMLSelectElement
+  | RichTextAreaProps,
   FormInputProps
 >(
   (

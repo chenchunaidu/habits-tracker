@@ -1,6 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import Button from "~/components/common/button";
 import Empty from "~/components/common/empty";
 import NavFloater from "~/components/habits/nav-floater";
 import HomeContainer from "~/components/home/home-container";

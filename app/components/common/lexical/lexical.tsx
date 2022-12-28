@@ -14,15 +14,30 @@ import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode } from "@lexical/link";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import type { FC } from "react";
+import { useState } from "react";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import type { EditorState } from "lexical";
+
+// import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 interface EditorProps {
   editable?: boolean;
+  name?: string;
+  initialState?: string;
 }
 
-const Editor: FC<EditorProps> = ({ editable = false }) => {
+const Editor: FC<EditorProps> = ({ editable = false, name, initialState }) => {
+  const [editorState, setEditorState] = useState("");
+  function onChange(state: EditorState) {
+    state.read(() => {
+      setEditorState(JSON.stringify(state));
+    });
+  }
+
   return (
     <LexicalComposer
       initialConfig={{
+        editorState: initialState,
         editable,
         nodes: [
           HeadingNode,
@@ -39,14 +54,23 @@ const Editor: FC<EditorProps> = ({ editable = false }) => {
         ],
       }}
     >
-      <div className="editor-container">
+      <div className={editable ? "editor-container" : ""}>
+        {editable ? (
+          <input type="hidden" name={name} value={editorState} />
+        ) : (
+          <div></div>
+        )}
+
         <RichTextPlugin
-          contentEditable={<ContentEditable className="editor-input" />}
-          placeholder={<Placeholder />}
+          contentEditable={
+            <ContentEditable className={editable ? "editor-input" : ""} />
+          }
+          placeholder={editable ? <Placeholder /> : <div></div>}
           ErrorBoundary={LexicalErrorBoundary}
         />
         <AutoFocusPlugin />
         <ListPlugin />
+        <OnChangePlugin onChange={onChange} />
         <LinkPlugin />
         <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       </div>

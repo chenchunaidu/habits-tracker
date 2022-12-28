@@ -15,7 +15,7 @@ export const CreateSubTaskFormData: FormInputProps[] = [
   },
   {
     label: "Description",
-    formInputType: "textarea",
+    formInputType: "richTextarea",
     inputProps: {
       id: "description",
       name: "description",

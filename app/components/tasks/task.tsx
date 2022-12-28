@@ -1,6 +1,7 @@
 import { Link, useFetcher } from "@remix-run/react";
 import React from "react";
 import Button from "../common/button";
+import Editor from "../common/lexical/lexical";
 import type { SubtaskProps } from "./subtask";
 import Subtask from "./subtask";
 
@@ -49,7 +50,7 @@ const Task: React.FC<TaskProps> = (task) => {
             </Button>
           </Link>
         </div>
-        <div>{task.description}</div>
+        <Editor initialState={task.description} />
       </div>
       {task?.subtasks?.map(({ id, description, title, completed }) => {
         return (
