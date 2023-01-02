@@ -1,6 +1,8 @@
+import { EllipsisVerticalIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { Link, useFetcher } from "@remix-run/react";
 import React from "react";
 import Button from "../common/button";
+import Menu from "../common/menu/menu";
 import type { SubtaskProps } from "./subtask";
 import Subtask from "./subtask";
 
@@ -43,11 +45,23 @@ const Task: React.FC<TaskProps> = (task) => {
               {task.title}
             </div>
           </div>
-          <Link to={`/home/tasks/${task.id}/subtask/new`}>
-            <Button variant="ghost" size="sm">
-              Add subtask
-            </Button>
-          </Link>
+          <div className="flex space-x-1">
+            <Link to={`/home/tasks/${task.id}/subtask/new`}>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center space-x-1"
+              >
+                <PlusIcon className="h-4 w-4" />
+                <div>subtask</div>
+              </Button>
+            </Link>
+            <Menu items={[]}>
+              <Button variant="link" size="sm">
+                <EllipsisVerticalIcon className="h-5 w-5" />
+              </Button>
+            </Menu>
+          </div>
         </div>
         <div>{task.description}</div>
       </div>
