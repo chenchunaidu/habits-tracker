@@ -38,6 +38,11 @@ habitStatus
   statusDate **String
   name byUserIdDate
 
+habitStatus
+  pk *String  # userId
+  statusMonth **String
+  name byUserIdMonth
+
 subtask
   pk *String  # userId
   taskId **String
