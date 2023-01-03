@@ -24,17 +24,16 @@ const Habit: React.FC<HabitProps> = ({
       completed;
 
   return (
-    <Link to={`/home/habits/${id}/monthly-report`}>
-      <toggle.Form
-        method="put"
-        key={id}
+    <toggle.Form method="put" key={id}>
+      <input type="hidden" value={id} name="habitId" />
+      <Link
+        to={`/home/habits/${id}/monthly-report`}
         className={`flex items-center space-x-4 rounded-md ${
           checked
             ? "bg-gradient-to-r from-lime-300 to-lime-400"
             : "bg-gradient-to-r from-gray-100 to-gray-200"
         } p-4 shadow-sm`}
       >
-        <input type="hidden" value={id} name="habitId" />
         <div>
           <input
             name="habitStatus"
@@ -62,8 +61,8 @@ const Habit: React.FC<HabitProps> = ({
           </div>
           <div className="text-sm text-slate-700">{description}</div>
         </div>
-      </toggle.Form>
-    </Link>
+      </Link>
+    </toggle.Form>
   );
 };
 
