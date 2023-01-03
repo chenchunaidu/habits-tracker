@@ -1,6 +1,7 @@
 import { useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/server-runtime";
 import React from "react";
+import Month from "~/components/monthly-report/month";
 import { requiredUser } from "~/lib/auth/auth";
 import { getMonthlyHabitStatusByUserId } from "~/models/daily-habit.server";
 
@@ -20,5 +21,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function MonthlyReport() {
   const { monthlyStatus } = useLoaderData();
   console.log(monthlyStatus);
-  return <div>MonthlyReport</div>;
+  return (
+    <div>
+      <Month />
+    </div>
+  );
 }
