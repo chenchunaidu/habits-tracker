@@ -42,8 +42,10 @@ const Habit: React.FC<HabitProps> = ({
             type="checkbox"
             className="h-6 w-6"
             checked={checked}
-            onChange={(e) => {
+            onClick={(e) => {
               e.stopPropagation();
+            }}
+            onChange={(e) => {
               toggle.submit(e.target.form);
             }}
           />
