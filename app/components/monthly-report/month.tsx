@@ -1,38 +1,40 @@
+import type { FC } from "react";
 import React from "react";
+import { getMonthlyWeekWiseData } from "./utils";
+import type { MonthlyReportDate } from "./utils";
 
-function daysInThisMonth() {
-  var now = new Date();
-  return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+interface WeekProps {
+  weekData: (MonthlyReportDate | null)[];
 }
 
-function getFirstDayOfMonth(year: number, month: number) {
-  return new Date(year, month, 1);
-}
-
-function getMonthlyWeekWiseData() {
-  const noOfDays = daysInThisMonth();
-  const weeks = [];
-  const now = new Date();
-  const monthFirstDay = getFirstDayOfMonth(now.getFullYear(), now.getMonth());
-  let week = [];
-  let count = 0;
-  for (let i = 0; i < monthFirstDay.getDay(); i++) {
-    week.push(null);
-    count += 1;
-  }
-  for (let i = 1; i < noOfDays + 1; i++) {
-    if (count % 7 === 0 && week.length) {
-      weeks.push(week);
-      week = [];
-    }
-    week.push(`${now.getFullYear()}-${now.getMonth() + 1}-${i}`);
-    count += 1;
-  }
-  return weeks;
-}
+const Week: FC<WeekProps> = ({ weekData }) => {
+  return (
+    <div className="flex space-x-2">
+      {weekData.map((day) => {
+        return (
+          <div
+            key={day?.date}
+            className="flex h-9 w-9  items-center justify-center rounded-full bg-lime-500 text-white"
+          >
+            <span>{day?.date}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 export default function Month() {
   const weeks = getMonthlyWeekWiseData();
   console.log(weeks);
-  return <div>Month</div>;
+  return (
+    <div className="flex flex-col items-center space-y-4">
+      <div className="text-lg"> Monthly report </div>
+      <div className="space-y-2">
+        {weeks.map((week, index) => (
+          <Week weekData={week} key={index} />
+        ))}
+      </div>
+    </div>
+  );
 }
