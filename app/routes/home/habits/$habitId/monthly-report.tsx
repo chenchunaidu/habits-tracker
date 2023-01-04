@@ -23,7 +23,7 @@ export default function MonthlyReport() {
   const { monthlyStatus } = useLoaderData();
 
   return (
-    <div>
+    <div className="rounded-md bg-white p-6 shadow-md">
       <Month monthlyObj={monthlyStatus} />
     </div>
   );
