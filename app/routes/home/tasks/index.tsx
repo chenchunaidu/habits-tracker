@@ -37,7 +37,6 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     case "subtask-status-update": {
-      console.log("coming here");
       const subtaskId = formData.get("subtaskId");
       const completed = formData.get("subtaskStatus");
 

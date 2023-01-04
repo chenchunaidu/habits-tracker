@@ -21,6 +21,16 @@ export const getHabitStatusByUserId = async (userId: string) => {
   return dailyHabit.Items.map((item) => ({ ...item, habitId: item?.sk }));
 };
 
+const monthlyHabitStatusToObj = (habitStatus: HabitStatus[]) => {
+  const habitStatusObj: Record<string, boolean> = {};
+  habitStatus.forEach((habit) => {
+    if (habit.statusDate) {
+      habitStatusObj[habit.statusDate] = habit.completed || false;
+    }
+  });
+  return habitStatusObj;
+};
+
 export const getMonthlyHabitStatusByUserId = async ({
   userId,
   habitId,
@@ -42,10 +52,12 @@ export const getMonthlyHabitStatusByUserId = async ({
     FilterExpression: "sk = :sk",
     ScanIndexForward: false,
   });
-  return dailyHabit.Items.map((item) => ({
-    ...item,
-    habitId: item?.sk,
-  }));
+  return monthlyHabitStatusToObj(
+    dailyHabit.Items.map((item) => ({
+      ...item,
+      habitId: item?.sk,
+    }))
+  );
 };
 
 export const getHabitStatusByUserIdAndDate = async (

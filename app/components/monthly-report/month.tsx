@@ -14,7 +14,9 @@ const Week: FC<WeekProps> = ({ weekData }) => {
         return (
           <div
             key={day?.date}
-            className="flex h-9 w-9  items-center justify-center rounded-full bg-lime-500 text-white"
+            className={`flex h-9 w-9  items-center justify-center rounded-full ${
+              day?.status ? " bg-lime-500 text-white" : "bg-gray-200 text-black"
+            }`}
           >
             <span>{day?.date}</span>
           </div>
@@ -24,9 +26,13 @@ const Week: FC<WeekProps> = ({ weekData }) => {
   );
 };
 
-export default function Month() {
-  const weeks = getMonthlyWeekWiseData();
-  console.log(weeks);
+interface MonthProps {
+  monthlyObj: Record<string, boolean>;
+}
+
+export const Month: FC<MonthProps> = ({ monthlyObj = {} }) => {
+  const weeks = getMonthlyWeekWiseData(monthlyObj);
+
   return (
     <div className="flex flex-col items-center space-y-4">
       <div className="text-lg"> Monthly report </div>
@@ -37,4 +43,4 @@ export default function Month() {
       </div>
     </div>
   );
-}
+};

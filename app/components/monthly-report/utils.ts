@@ -12,10 +12,11 @@ function getFirstDayOfMonth(year: number, month: number) {
   return new Date(year, month, 1);
 }
 
-export function getMonthlyWeekWiseData() {
+export function getMonthlyWeekWiseData(monthlyObj: Record<string, boolean>) {
   const noOfDays = daysInThisMonth();
   const weeks = [];
   const now = new Date();
+
   const monthFirstDay = getFirstDayOfMonth(now.getFullYear(), now.getMonth());
   let week: (MonthlyReportDate | null)[] = [];
   let count = 0;
@@ -30,9 +31,17 @@ export function getMonthlyWeekWiseData() {
     }
     week.push({
       date: `${i}`,
-      status: false,
+      status:
+        monthlyObj[
+          `${now.getFullYear()}-${now.getMonth() + 1 < 10 ? "0" : ""}${
+            now.getMonth() + 1
+          }-${i < 10 ? "0" : ""}${i}`
+        ],
     });
     count += 1;
+  }
+  if (week.length) {
+    weeks.push(week);
   }
   return weeks;
 }
