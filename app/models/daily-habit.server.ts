@@ -18,7 +18,7 @@ export const getHabitStatusByUserId = async (userId: string) => {
     ExpressionAttributeValues: { ":pk": userId },
     ScanIndexForward: false,
   });
-  return dailyHabit.Items.map((item) => ({ ...item, habitId: item?.sk }));
+  return dailyHabit.Items.map((item) => ({ ...item, id: item?.sk }));
 };
 
 const monthlyHabitStatusToObj = (habitStatus: HabitStatus[]) => {
@@ -47,15 +47,15 @@ export const getMonthlyHabitStatusByUserId = async ({
     ExpressionAttributeValues: {
       ":pk": userId,
       ":statusMonth": month,
-      ":sk": habitId,
+      ":habitId": habitId,
     },
-    FilterExpression: "sk = :sk",
+    FilterExpression: "habitId = :habitId",
     ScanIndexForward: false,
   });
   return monthlyHabitStatusToObj(
     dailyHabit.Items.map((item) => ({
       ...item,
-      habitId: item?.sk,
+      id: item?.sk,
     }))
   );
 };
@@ -71,7 +71,7 @@ export const getHabitStatusByUserIdAndDate = async (
     ExpressionAttributeValues: { ":pk": userId, ":statusDate": statusDate },
     ScanIndexForward: false,
   });
-  return dailyHabit.Items.map((item) => ({ ...item, habitId: item?.sk }));
+  return dailyHabit.Items.map((item) => ({ ...item, id: item?.id }));
 };
 
 export const createHabitStatus = async ({
@@ -87,8 +87,8 @@ export const createHabitStatus = async ({
   const month = statusDate.split("-");
   month.pop();
   await db?.habitStatus.put({
-    id: id,
-    sk: habitId,
+    habitId,
+    sk: id,
     pk: userId,
     createdAt: time,
     statusDate,
