@@ -2,6 +2,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import Fullscreen from "~/components/common/full-screen";
 import Header from "~/components/common/header";
+import NavFloater from "~/components/habits/nav-floater";
 import { requiredUser } from "~/lib/auth/auth";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -15,6 +16,7 @@ export default function HomePage() {
     <Fullscreen className="flex flex-col items-center space-y-4 bg-gray-50">
       <Header userId={userId} />
       <Outlet />
+      <NavFloater />
     </Fullscreen>
   );
 }

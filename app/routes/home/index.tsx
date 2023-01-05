@@ -6,7 +6,6 @@ import { Progress } from "~/components/common/progress";
 import { HabitsContainer } from "~/components/habits/habits-container";
 import type { HabitProps } from "~/components/habits/habit";
 import { createHabitStatus } from "~/models/daily-habit.server";
-import NavFloater from "~/components/habits/nav-floater";
 import HomeContainer from "~/components/home/home-container";
 import Empty from "~/components/common/empty";
 
@@ -72,8 +71,6 @@ export default function Homepage() {
           label="You have no habits"
         />
       )}
-
-      <NavFloater />
     </HomeContainer>
   );
 }
