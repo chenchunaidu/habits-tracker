@@ -70,6 +70,19 @@ export const getHabitsByUserId = async (userId: string): Promise<Habit[]> => {
   return habits.Items.map((item) => ({ ...item, id: item?.sk }));
 };
 
+export const getHabitByUserId = async (
+  userId: string,
+  habitId: string
+): Promise<Habit[]> => {
+  const db = await arc.tables();
+  const habits = await db.habit.query({
+    KeyConditionExpression: "pk = :pk AND sk = :sk",
+    ExpressionAttributeValues: { ":pk": userId, ":sk": habitId },
+    ScanIndexForward: false,
+  });
+  return habits.Items.map((item) => ({ ...item, id: item?.sk }));
+};
+
 const convertHabitStatusToObj = (habitStatus: HabitStatus[]) => {
   const habitStatusObj: Record<string, boolean> = {};
   habitStatus.forEach((habit) => {

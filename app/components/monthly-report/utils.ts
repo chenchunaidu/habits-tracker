@@ -1,3 +1,18 @@
+const months = [
+  "January",
+  "February",
+  "Match",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export interface MonthlyReportDate {
   date: string;
   status: boolean;
@@ -43,5 +58,5 @@ export function getMonthlyWeekWiseData(monthlyObj: Record<string, boolean>) {
   if (week.length) {
     weeks.push(week);
   }
-  return weeks;
+  return { weeks, monthName: months[now.getMonth()] };
 }

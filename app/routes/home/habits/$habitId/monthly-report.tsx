@@ -10,21 +10,21 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const statusDate = new Date().toISOString().split("T")[0];
   const month = statusDate.split("-");
   month.pop();
-  const monthlyStatus = await getMonthlyHabitStatusByUserId({
+  const { monthlyStatus, habit } = await getMonthlyHabitStatusByUserId({
     userId: user.id,
     month: month.join("-"),
     habitId: params["habitId"] || "",
   });
 
-  return { monthlyStatus };
+  return { monthlyStatus, habit };
 };
 
 export default function MonthlyReport() {
-  const { monthlyStatus } = useLoaderData();
+  const { monthlyStatus, habit } = useLoaderData();
 
   return (
-    <div className="rounded-md bg-white p-6 shadow-md">
-      <Month monthlyObj={monthlyStatus} />
+    <div className="rounded-md bg-white p-6">
+      <Month monthlyObj={monthlyStatus} habit={habit} />
     </div>
   );
 }

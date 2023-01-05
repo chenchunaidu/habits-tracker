@@ -1,5 +1,6 @@
 import arc from "@architect/functions";
 import randomstring from "randomstring";
+import { getHabitByUserId, getHabitsByUserId } from "./habit.server";
 
 export type HabitStatus = {
   id: string;
@@ -52,12 +53,16 @@ export const getMonthlyHabitStatusByUserId = async ({
     FilterExpression: "habitId = :habitId",
     ScanIndexForward: false,
   });
-  return monthlyHabitStatusToObj(
-    dailyHabit.Items.map((item) => ({
-      ...item,
-      id: item?.sk,
-    }))
-  );
+  const habit = (await getHabitByUserId(userId, habitId))[0];
+  return {
+    habit: habit || {},
+    monthlyStatus: monthlyHabitStatusToObj(
+      dailyHabit.Items.map((item) => ({
+        ...item,
+        id: item?.sk,
+      }))
+    ),
+  };
 };
 
 export const getHabitStatusByUserIdAndDate = async (
