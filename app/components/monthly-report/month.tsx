@@ -2,7 +2,7 @@ import type { FC } from "react";
 import React from "react";
 import { getMonthlyWeekWiseData } from "./utils";
 import type { MonthlyReportDate } from "./utils";
-import { Habit } from "~/models/habit.server";
+import type { Habit } from "~/models/habit.server";
 
 interface WeekProps {
   weekData: (MonthlyReportDate | null)[];
